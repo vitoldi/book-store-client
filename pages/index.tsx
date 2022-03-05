@@ -1,14 +1,14 @@
-import type { NextPage } from 'next'
+import { NextPage } from 'next'
 import Head from 'next/head'
 
 const MainPage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Main | Books</title>
+        <title>Books store | Main</title>
       </Head>
         <div>
-          About books
+          Main page
         </div>
     </>
   )

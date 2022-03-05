@@ -1,0 +1,33 @@
+.layout__navbar {
+    margin-right: auto;
+}
+
+.layout__navbar a {
+    margin-right: 24px;
+    font-size: x-large;
+    text-decoration: none;
+    color: #495057;
+}
+
+.layout__navbar a:hover, .footer__links_item a:hover {
+    color: #f8f9fa;
+}
+
+.footer {
+    padding: 24px 0;
+}
+
+.footer__author {
+    color: #495057;
+}
+
+.footer__links a {
+    display: flex;
+    text-decoration: none;
+    color: #495057;
+    margin-right: 24px;
+}
+
+.footer__links_img {
+    margin-right: 12px;
+}
