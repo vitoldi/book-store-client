@@ -1,33 +1,60 @@
+@import '../../styles/variables.scss';
+
 .layout__navbar {
     margin-right: auto;
 }
 
-.layout__navbar a {
+.layout__navbar > div {
     margin-right: 24px;
-    font-size: x-large;
-    text-decoration: none;
-    color: #495057;
 }
 
-.layout__navbar a:hover, .footer__links_item a:hover {
-    color: #f8f9fa;
+.layout__navbar a {
+    font-size: x-large;
+    text-decoration: none;
+    color: $text-color;
 }
 
 .footer {
-    padding: 24px 0;
+    padding: 12px 0;
 }
 
 .footer__author {
-    color: #495057;
+    color: $text-color;
 }
 
 .footer__links a {
     display: flex;
     text-decoration: none;
-    color: #495057;
+    color: $text-color;
     margin-right: 24px;
 }
 
 .footer__links_img {
     margin-right: 12px;
 }
+
+.layout__navbar a:hover, .footer__links a:hover {
+    color: $hover-text-color;
+}
+
+.layout__navbar_underline {
+    background: $text-color;
+    height: 3px;
+    width: 0;
+}
+
+.layout__navbar_selected {
+    animation-duration: 0.7s;
+    animation-name: selected-nav;
+    width: 100%;
+}
+
+@keyframes selected-nav {
+    from {
+      width: 0
+    }
+  
+    to {
+      width: 100%
+    }
+  }
