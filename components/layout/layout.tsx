@@ -13,10 +13,9 @@ interface Props {
 
 export default function Layout({ children }: Props ) {
     const {pathname} = useRouter()
-    console.log(pathname)
     return (
-        <>
-            <Navbar bg="light">
+        <div className={classes.layout}>
+            <Navbar bg="light" fixed="top">
                 <Container>
                     <Navbar.Brand>
                         <Image src='/logo.png' alt='' width={'50px'} height={'50px'}/>
@@ -35,8 +34,8 @@ export default function Layout({ children }: Props ) {
                     </Nav>
                 </Container>
             </Navbar>
-            <main>{children}</main>
-            <Navbar bg="light" fixed="bottom" className={classes.footer}>
+            <main className={classes.main}>{children}</main>
+            <Navbar bg="light" className={classes.footer}>
                 <Container>
                     <div className={classes.footer__links}>
                         <a href="https://github.com/vitoldi" target='_blank' rel='noreferrer'>
@@ -51,6 +50,6 @@ export default function Layout({ children }: Props ) {
                     <div className={classes.footer__author}>Vitali Logvin</div>
                 </Container>
             </Navbar>
-        </>
+        </div>
     )
 }

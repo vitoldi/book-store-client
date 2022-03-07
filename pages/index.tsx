@@ -1,5 +1,7 @@
 import { NextPage } from 'next'
 import Head from 'next/head'
+import { Container } from 'react-bootstrap'
+import { AphorismCard } from '../components/aphorism-card/aphorism-card'
 
 const MainPage: NextPage = () => {
   return (
@@ -7,9 +9,9 @@ const MainPage: NextPage = () => {
       <Head>
         <title>Books store | Main</title>
       </Head>
-        <div>
-          Main page
-        </div>
+      <Container>
+        <AphorismCard />
+      </Container>
     </>
   )
 }

@@ -15,8 +15,6 @@ export async function getServerSideProps() {
   try {
     const response = await fetch('http://localhost:8000/books')
     const books: BookDto = await response.json()
-    console.log(response)
-    console.log('here')
     return {
       props: {books}
   }
