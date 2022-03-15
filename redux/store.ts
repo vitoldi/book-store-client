@@ -1,11 +1,19 @@
-import { configureStore, Store } from "@reduxjs/toolkit";
-import {createWrapper, Context } from 'next-redux-wrapper';
-import { useDispatch } from "react-redux";
+import { AnyAction, combineReducers, configureStore, Store, ThunkAction, ThunkDispatch } from "@reduxjs/toolkit";
+import {createWrapper, Context, HYDRATE } from 'next-redux-wrapper';
+import { DefaultRootState, RootStateOrAny, useDispatch } from "react-redux";
 import { booksSlice } from "./books-reducer";
 import { State } from "./types";
 
-const makeStore = (context: Context) => configureStore({
-  reducer: {books: booksSlice.reducer}
+const combineReducer = combineReducers({
+  books: booksSlice.reducer
 })
 
-export const wrapper = createWrapper<Store<State>>(makeStore, {debug: true})
+const makeStore = () => configureStore({
+  reducer: combineReducer
+})
+
+export const wrapper = createWrapper(makeStore, {debug: true})
+
+export type AppStore = ReturnType<typeof makeStore>
+
+export type NextThunkDispatch = ThunkDispatch<DefaultRootState, void, AnyAction>
