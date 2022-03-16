@@ -7,10 +7,18 @@ const initialState: CurrentBookState = {
     status: 'idle'
 }
 
-export const currentBooksSlice = createSlice({
+export const fetchCurrentBook = createAsyncThunk('currentBook/fetchCurrentBook', async (id: string) => {
+  return await booksClientApi.getCurrentBook(id)
+})
+
+export const currentBookSlice = createSlice({
   name: 'currentBook',
   initialState,
-  reducers: {},
+  reducers: {
+    removeCurrentBookValue: (state) => {
+      state.value = null
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchCurrentBook.pending, (state) => {
@@ -26,6 +34,4 @@ export const currentBooksSlice = createSlice({
   },
 })
 
-export const fetchCurrentBook = createAsyncThunk('currentBook/fetchCurrentBook', async (id: string) => {
-  return await booksClientApi.getCurrentBook(id)
-})
+export const {removeCurrentBookValue} = currentBookSlice.actions

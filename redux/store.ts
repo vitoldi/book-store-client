@@ -2,11 +2,11 @@ import { AnyAction, combineReducers, configureStore, ThunkDispatch } from "@redu
 import {createWrapper } from 'next-redux-wrapper';
 import { DefaultRootState } from "react-redux";
 import { booksSlice } from "./books-reducer";
-import { currentBooksSlice } from "./current-book-reducer";
+import { currentBookSlice } from "./current-book-reducer";
 
 const combineReducer = combineReducers({
   books: booksSlice.reducer,
-  currentBook: currentBooksSlice.reducer
+  currentBook: currentBookSlice.reducer
 })
 
 const makeStore = () => configureStore({

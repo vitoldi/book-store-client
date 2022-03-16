@@ -4,7 +4,7 @@ import { useEffect } from "react"
 import { Spinner } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { BookLargeCard } from "../../components/book-large-card/book-large-card"
-import { fetchCurrentBook } from "../../redux/current-book-reducer"
+import { currentBookSlice, fetchCurrentBook, removeCurrentBookValue } from "../../redux/current-book-reducer"
 import { State } from "../../redux/types"
 
 const BookPageId: NextPage = () => {
@@ -12,9 +12,11 @@ const BookPageId: NextPage = () => {
     const {id} = router.query
     const dispatch = useDispatch()
     const bookState = useSelector((state: State) => state.currentBook)
-
+    console.log(bookState.value)
     useEffect(() => {
         dispatch(fetchCurrentBook(String(id)))
+        return () => {
+            dispatch(removeCurrentBookValue())}
     }, [id, dispatch])
 
     if (!bookState.value) {
