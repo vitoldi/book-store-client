@@ -1,0 +1,14 @@
+.bookLargeCard {
+    margin: 24px 0;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    grid-gap: 24px;
+    &__text {
+        margin: -8px 0;
+        &_title {
+            font-size: x-large;
+            font-weight: 700;
+        }
+    }
+}

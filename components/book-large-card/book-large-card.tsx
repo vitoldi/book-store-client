@@ -11,15 +11,17 @@ interface Props {
 
 export const BookLargeCard: NextPage<Props> = ({book}) => {
     return (
-        <Card>
+        <Card className={classes.bookLargeCard}>
             <div>
-                <Image src={`${booksClientApi.COMMON_API}${book.image.slice(5)}`} alt='' width={'70px'} height={'100px'} />
+                <Image src={`${booksClientApi.COMMON_API}${book.image.slice(5)}`} alt='' width={'150px'} height={'220px'} />
             </div>
-            <div>{book.title}</div>
-            <div>{book.price}</div>
-            <div>{book.year}</div>
-            <div>{book.description}</div>
-            <div>{book.author}</div>
+            <div className={classes.bookLargeCard__text}>
+                <div className={classes.bookLargeCard__text_title}>{book.title}</div>
+                <div>Author: {book.author}</div>
+                <div>Year: {book.year}</div>
+                <div>Price: {book.price}</div>
+                <div>Description: {book.description}</div>
+            </div>
         </Card>
     )
 }

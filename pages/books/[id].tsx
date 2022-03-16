@@ -1,10 +1,11 @@
 import { NextPage } from "next"
 import { useRouter } from "next/router"
 import { useEffect } from "react"
-import { Spinner } from "react-bootstrap"
+import { Container } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { BookLargeCard } from "../../components/book-large-card/book-large-card"
-import { currentBookSlice, fetchCurrentBook, removeCurrentBookValue } from "../../redux/current-book-reducer"
+import { SpinnerContainer } from "../../components/spinner/spinner"
+import { fetchCurrentBook, removeCurrentBookValue } from "../../redux/current-book-reducer"
 import { State } from "../../redux/types"
 
 const BookPageId: NextPage = () => {
@@ -12,7 +13,7 @@ const BookPageId: NextPage = () => {
     const {id} = router.query
     const dispatch = useDispatch()
     const bookState = useSelector((state: State) => state.currentBook)
-    console.log(bookState.value)
+
     useEffect(() => {
         dispatch(fetchCurrentBook(String(id)))
         return () => {
@@ -25,13 +26,10 @@ const BookPageId: NextPage = () => {
     }
  
     return (
-        <>
-            {bookState.status === 'loading' &&
-            <Spinner animation="border" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </Spinner>}
+        <Container>
+            <SpinnerContainer isVisible={bookState.status === 'loading'} />
             <BookLargeCard book={bookState.value} />
-        </>
+        </Container>
     )
 }
 
