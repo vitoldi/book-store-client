@@ -1,7 +1,9 @@
-import classNames from 'classnames'
+import { NextPage } from 'next'
 import Head from 'next/head'
-import { Button, CardGroup, Container, Row, Spinner } from 'react-bootstrap'
+import Link from 'next/link'
+import { Container, Spinner } from 'react-bootstrap'
 import { BookSmallCard } from '../components/book-small-card/book-small-card'
+import { Path } from '../core/path'
 import { fetchBooks } from '../redux/books-reducer'
 import { wrapper } from '../redux/store'
 import { BooksState } from '../redux/types'
@@ -16,7 +18,7 @@ interface Props {
   state: BooksState
 }
 
-const BooksPage: React.FC<Props> = ({state}) => {
+const BooksPage: NextPage<Props> = ({state}) => {
   if (state.status === 'failed') {
     return null
   }
@@ -36,7 +38,9 @@ const BooksPage: React.FC<Props> = ({state}) => {
           state.value.map((book) => {
             return (
               <div key={book._id}>
-                <BookSmallCard book={book} />
+                <Link href={`${Path.BOOKS}/${book._id}`} passHref>
+                  <a><BookSmallCard book={book} /></a>
+                </Link>
               </div>
             )
           })

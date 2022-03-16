@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { getAllBooksApi } from "../api/books/books-api"
+import { booksClientApi } from "../api/books/books-api"
 import { BooksState } from "./types"
 
 const initialState: BooksState = {
@@ -7,7 +7,7 @@ const initialState: BooksState = {
     status: 'idle'
 }
 
-export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => await getAllBooksApi())
+export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => await booksClientApi.getAllBooks())
 
 export const booksSlice = createSlice({
   name: 'books',

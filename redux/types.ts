@@ -5,6 +5,12 @@ export interface BooksState {
     status: 'idle' | 'loading' | 'failed'
 }
 
+export interface CurrentBookState {
+    value: BookDto | null
+    status: 'idle' | 'loading' | 'failed'
+}
+
 export interface State {
     books: BooksState
+    currentBook: CurrentBookState
 }
