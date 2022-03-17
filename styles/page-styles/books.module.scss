@@ -1,9 +1,14 @@
-.booksPage__cardContainer {
-    display: flex;
-    flex-wrap: wrap;
+.booksPage__wrapper {
+    margin: 24px 0;
 }
 
-.booksPage__cardContainer a {
-    text-decoration: none;
-    color: inherit;
+.booksPage__cards {
+    margin-top: 24px;
+    display: flex;
+    flex-wrap: wrap;
+
+    & a {
+        text-decoration: none;
+        color: inherit;
+    }
 }

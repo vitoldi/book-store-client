@@ -1,8 +1,11 @@
 import { NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
-import { Container, Spinner } from 'react-bootstrap'
+import { useState } from 'react'
+import { Button, Container } from 'react-bootstrap'
+import { AddBookDialog } from '../components/add-book-dialog/add-book-dialog'
 import { BookSmallCard } from '../components/book-small-card/book-small-card'
+import { SpinnerContainer } from '../components/spinner/spinner'
 import { Path } from '../core/path'
 import { fetchBooks } from '../redux/books-reducer'
 import { wrapper } from '../redux/store'
@@ -19,33 +22,37 @@ interface Props {
 }
 
 const BooksPage: NextPage<Props> = ({state}) => {
+  const [isDialogVisible, setDialogVisible] = useState(false)
+
   if (state.status === 'failed') {
     return null
   }
   
   return (
     <>
-      {state.status === 'loading' &&
-        <Spinner animation="border" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </Spinner>
-      }
       <Head>
         <title>Books store | Books</title>
       </Head>
-      <Container className={classes.booksPage__cardContainer}>
-        {
-          state.value.map((book) => {
-            return (
-              <div key={book._id}>
-                <Link href={`${Path.BOOKS}/${book._id}`} passHref>
-                  <a><BookSmallCard book={book} /></a>
-                </Link>
-              </div>
-            )
-          })
-        }
+      <SpinnerContainer isVisible={state.status === 'loading'} />
+      <Container>
+        <div className={classes.booksPage__wrapper}>
+          <Button variant={'secondary'} onClick={() => setDialogVisible(true)} >+ Add book</Button>
+          <div className={classes.booksPage__cards}>
+            {
+              state.value.map((book) => {
+                return (
+                  <div key={book._id}>
+                    <Link href={`${Path.BOOKS}/${book._id}`} passHref>
+                      <a><BookSmallCard book={book} /></a>
+                    </Link>
+                  </div>
+                )
+              })
+            }
+          </div>
+        </div>
       </Container>
+      <AddBookDialog isVisible={isDialogVisible} onChangeVisible={setDialogVisible} />
     </>
   )
 }
