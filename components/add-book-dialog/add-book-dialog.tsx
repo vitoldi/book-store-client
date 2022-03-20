@@ -1,6 +1,7 @@
 import { NextPage } from 'next'
-import { Button, Modal } from 'react-bootstrap'
+import { Modal } from 'react-bootstrap'
 import { AddBookForm } from '../add-book-form/add-book-form'
+import classes from './add-book-dialog.module.scss'
 
 interface Props {
     isVisible: boolean
@@ -18,15 +19,12 @@ export const AddBookDialog: NextPage<Props> = ({isVisible, onChangeVisible}) => 
         >
             <Modal.Header closeButton onHide={() => onChangeVisible(false)}>
                 <Modal.Title id="contained-modal-title-vcenter">
-                Add new book
+                    Add new book
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <AddBookForm />
             </Modal.Body>
-            <Modal.Footer>
-                <Button onClick={() => onChangeVisible(false)}>Close</Button>
-            </Modal.Footer>
         </Modal>
     )
 }

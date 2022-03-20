@@ -1,16 +1,26 @@
-import { BookDto } from "./book-types"
+import { BookDto, BookPostDto } from "./book-types"
 
 class BooksClientApi {
-    readonly COMMON_API = 'http://localhost:8000'
+    readonly COMMON_BOOKS_API = 'http://localhost:8000/books'
     
-    async getAllBooks(): Promise<BookDto[]> {
-        const response = await fetch(`${this.COMMON_API}/books`)
+    async getAll(): Promise<BookDto[]> {
+        const response = await fetch(`${this.COMMON_BOOKS_API}`)
         return response.json()
     }
 
-    async getCurrentBook(id: string): Promise<BookDto> {
-        const response = await fetch(`${this.COMMON_API}/books/${id}`)
+    async getCurrent(id: string): Promise<BookDto> {
+        const response = await fetch(`${this.COMMON_BOOKS_API}/${id}`)
         return response.json()
+    }
+
+    async post(book: BookPostDto): Promise<Response> {
+        const body = new FormData()
+        const response = await fetch(`${this.COMMON_BOOKS_API}`, {
+            method: 'POST',
+            body: JSON.stringify(book)
+        })
+        console.log(response)
+        return response
     }
 }
 

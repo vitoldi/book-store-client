@@ -7,7 +7,7 @@ const initialState: BooksState = {
     status: 'idle'
 }
 
-export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => await booksClientApi.getAllBooks())
+export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => await booksClientApi.getAll())
 
 export const booksSlice = createSlice({
   name: 'books',

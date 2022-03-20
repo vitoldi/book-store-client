@@ -1,0 +1,1 @@
+export const COMMON_API = 'http://localhost:8000'

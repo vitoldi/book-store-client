@@ -1,0 +1,27 @@
+@import 'styles/variables.scss';
+
+.form {
+    margin-bottom: 24px;
+    &__submitButton {
+        text-align: right;
+    }
+    &__inputGroup {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 24px;
+        & label {
+            text-transform: capitalize;
+        }
+        &__text {
+            &_input {
+                margin-bottom: 12px;
+            }
+        }
+    }
+}
+
+.errorMessage {
+    color: $text-color-danger;
+    text-align: center;
+    margin: 24px 0;
+}

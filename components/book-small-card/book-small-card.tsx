@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import Image from 'next/image'
 import { Card } from 'react-bootstrap'
 import { BookDto } from '../../api/books/book-types'
-import { booksClientApi } from '../../api/books/books-api'
+import { COMMON_API } from '../../api/common-api'
 import classes from './book-small-card.module.scss'
 
 interface Props {
@@ -14,7 +14,7 @@ export const BookSmallCard: NextPage<Props>  = ({book}) => {
         <Card className={classes.bookSmallCard}>
             <div className={classes.bookSmallCard__textContainer_title}>{book.title}</div>
             <div>
-                <Image src={`${booksClientApi.COMMON_API}${book.image.slice(5)}`} alt='' width={'70px'} height={'100px'} />
+                <Image src={`${COMMON_API}${book.image.slice(5)}`} alt='' width={'70px'} height={'100px'} />
             </div>
             <div className={classes.bookSmallCard__textContainer}>
                 <div>Author: {book.author}</div>

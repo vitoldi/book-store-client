@@ -7,3 +7,5 @@ export interface BookDto {
     description: string
     author: string
   }
+
+export interface BookPostDto extends Omit<BookDto, '_id' | 'image'> { image: File | null}
