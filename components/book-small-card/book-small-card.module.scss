@@ -1,17 +1,19 @@
 .bookSmallCard {
     padding: 12px;
-    grid-gap: 24px;
     width: 200px;
-    height: 270px;
     text-align: center;
     display: grid;
-    grid-template-rows: 30px 100px 30px;
-    margin-right: 24px;
+    grid-template-rows: 30px 100px 60px;
+    grid-gap: 12px;
+    & a {
+        text-decoration: none;
+        color: inherit;
+    }
+    &__title {
+        font-size: medium;
+        font-weight: 700;
+    }
     &__textContainer {
         font-size: small;
-        &_title {
-            font-size: medium;
-            font-weight: 700;
-        }
     }
 }

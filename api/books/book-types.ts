@@ -8,4 +8,4 @@ export interface BookDto {
     author: string
   }
 
-export interface BookPostDto extends Omit<BookDto, '_id' | 'image'> { image: File | null}
+export interface BookPostDto extends Omit<BookDto, '_id' | 'image'> { image: File }

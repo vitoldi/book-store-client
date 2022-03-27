@@ -8,7 +8,7 @@ const initialState: CurrentBookState = {
 }
 
 export const fetchCurrentBook = createAsyncThunk('currentBook/fetchCurrentBook', async (id: string) => {
-  return await booksClientApi.getCurrentBook(id)
+  return await booksClientApi.getCurrent(id)
 })
 
 export const currentBookSlice = createSlice({

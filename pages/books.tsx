@@ -1,12 +1,10 @@
 import { NextPage } from 'next'
 import Head from 'next/head'
-import Link from 'next/link'
 import { useState } from 'react'
 import { Button, Container } from 'react-bootstrap'
 import { AddBookDialog } from '../components/add-book-dialog/add-book-dialog'
 import { BookSmallCard } from '../components/book-small-card/book-small-card'
 import { SpinnerContainer } from '../components/spinner/spinner'
-import { Path } from '../core/path'
 import { fetchBooks } from '../redux/books-reducer'
 import { wrapper } from '../redux/store'
 import { BooksState } from '../redux/types'
@@ -41,10 +39,8 @@ const BooksPage: NextPage<Props> = ({state}) => {
             {
               state.value.map((book) => {
                 return (
-                  <div key={book._id}>
-                    <Link href={`${Path.BOOKS}/${book._id}`} passHref>
-                      <a><BookSmallCard book={book} /></a>
-                    </Link>
+                  <div key={book._id} className={classes.booksPage__cards_card}>
+                      <BookSmallCard book={book} />
                   </div>
                 )
               })
