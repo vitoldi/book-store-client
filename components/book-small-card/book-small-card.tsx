@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Button, Card } from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
 import { BookDto } from '../../api/books/book-types'
 import { COMMON_API } from '../../api/common-api'
 import { Path } from '../../core/path'

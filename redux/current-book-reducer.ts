@@ -4,11 +4,16 @@ import { CurrentBookState } from './types'
 
 const initialState: CurrentBookState = {
     value: null,
-    status: 'idle'
+    status: 'idle',
+    deleteStatus: null
 }
 
 export const fetchCurrentBook = createAsyncThunk('currentBook/fetchCurrentBook', async (id: string) => {
   return await booksClientApi.getCurrent(id)
+})
+
+export const deleteCurrentBook = createAsyncThunk('currentBook/deleteCurrentBook', async (id: string) => {
+  return await booksClientApi.delete(id)
 })
 
 export const currentBookSlice = createSlice({
@@ -17,6 +22,9 @@ export const currentBookSlice = createSlice({
   reducers: {
     removeCurrentBookValue: (state) => {
       state.value = null
+    },
+    nullDeleteStatus: (state) => {
+      state.deleteStatus = null
     }
   },
   extraReducers: (builder) => {
@@ -31,7 +39,16 @@ export const currentBookSlice = createSlice({
       .addCase(fetchCurrentBook.rejected, (state) => {
         state.status = 'failed'
       })
+      .addCase(deleteCurrentBook.pending, (state) => {
+        state.deleteStatus = 'loading'
+      })
+      .addCase(deleteCurrentBook.fulfilled, (state) => {
+        state.deleteStatus = 'idle'
+      })
+      .addCase(deleteCurrentBook.rejected, (state) => {
+        state.deleteStatus = 'failed'
+      })
   },
 })
 
-export const {removeCurrentBookValue} = currentBookSlice.actions
+export const {removeCurrentBookValue, nullDeleteStatus} = currentBookSlice.actions

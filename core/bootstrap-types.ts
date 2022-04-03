@@ -1,0 +1,1 @@
+export type ToastBackgrounds = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'dark' | 'light'

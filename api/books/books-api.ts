@@ -14,7 +14,7 @@ class BooksClientApi {
         return response.json()
     }
 
-    async post({image, title, author, price, description, year}: BookPostDto): Promise<Response> {
+    async post({image, title, author, price, description, year}: BookPostDto) {
         const body = new FormData()
         body.append('image', image)
         body.append('title', title)
@@ -26,14 +26,12 @@ class BooksClientApi {
             method: 'POST',
             body
         })
-        return response
     }
 
-    async delete(id: string): Promise<BookDto> {
+    async delete(id: string) {
         const response = await fetch(`${this.COMMON_BOOKS_API}/${id}`, {
             method: 'DELETE'
         })
-        return response.json()
     }
 }
 

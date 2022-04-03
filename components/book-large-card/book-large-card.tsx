@@ -1,9 +1,10 @@
 import { NextPage } from 'next'
-import { useRouter } from 'next/router'
+import Image from 'next/image'
 import { Button, Card } from 'react-bootstrap'
+import { useDispatch } from 'react-redux'
 import { BookDto } from '../../api/books/book-types'
-import { booksClientApi } from '../../api/books/books-api'
-import { Path } from '../../core/path'
+import { COMMON_API } from '../../api/common-api'
+import { deleteCurrentBook } from '../../redux/current-book-reducer'
 import classes from './book-large-card.module.scss'
 
 interface Props {
@@ -11,12 +12,12 @@ interface Props {
 }
 
 export const BookLargeCard: NextPage<Props> = ({book}) => {
-    const router = useRouter()
+    const dispatch = useDispatch()
     return (
         <Card className={classes.bookLargeCard}>
             <div className={classes.bookLargeCard__content}>
                 <div>
-                    {/* <Image src={`${COMMON_API}${book.image.slice(5)}`} alt='' width={'150px'} height={'220px'} /> */}
+                    <Image src={`${COMMON_API}/${book.image}`} alt='' width={'150px'} height={'220px'} />
                 </div>
                 <div className={classes.bookLargeCard__content__text}>
                     <div className={classes.bookLargeCard__content__text_title}>{book.title}</div>
@@ -28,9 +29,10 @@ export const BookLargeCard: NextPage<Props> = ({book}) => {
             </div>
             <div className={classes.removeButton}>
                 <Button variant='danger' onClick={() => {
-                    booksClientApi.delete(book._id)
-                    router.push(Path.BOOKS)
-                    }}>Remove</Button>
+                    dispatch(deleteCurrentBook(book._id))
+                    }}>
+                        Delete
+                </Button>
             </div>
         </Card>
     )

@@ -23,7 +23,7 @@ export const AddBookDialog: NextPage<Props> = ({isVisible, onChangeVisible}) => 
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <AddBookForm />
+                <AddBookForm onClose={() => onChangeVisible(false)} />
             </Modal.Body>
         </Modal>
     )

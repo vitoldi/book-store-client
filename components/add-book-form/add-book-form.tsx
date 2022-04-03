@@ -5,7 +5,8 @@ import { BookPostDto } from "../../api/books/book-types";
 import classes from './add-book-form.module.scss'
 import { Button } from "react-bootstrap";
 import { addBookValidation } from "./add-book-validation";
-import { booksClientApi } from "../../api/books/books-api";
+import { fetchBooks, postBook } from "../../redux/books-reducer";
+import { useDispatch } from "react-redux";
 
 const textInputs: Array<keyof Omit<BookPostDto, 'image'>> = ['title', 'author', 'year', 'price', 'description']
 
@@ -17,9 +18,14 @@ const initialValues: Omit<BookPostDto, 'image'> = {
     author: '',
 }
 
-export const AddBookForm: NextPage = () => {
-    const [selectedFile, setSelectedFile] = useState<File | null>(null)
+interface Props {
+    onClose: () => void
+}
+
+export const AddBookForm: NextPage<Props> = ({onClose}) => {
+    const [selectedFile, setSelectedFile] = useState<File>(null as unknown as File)
     const [errorMessage, setErrorMessage] = useState('')
+    const dispatch = useDispatch()
     const formik = useFormik({
         initialValues,
         onSubmit: values => {
@@ -32,7 +38,9 @@ export const AddBookForm: NextPage = () => {
                 setErrorMessage(validationError)
             } else {
                 setErrorMessage('')
-                booksClientApi.post(bookPost)
+                dispatch(postBook(bookPost))
+                dispatch(fetchBooks())
+                onClose()
             }
         },
       });
