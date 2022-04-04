@@ -1,9 +1,12 @@
 import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
 import { DefaultRootState } from "react-redux";
 import { BookDto } from "../api/books/book-types";
+import { ApiList } from "../api/types/common-api-types";
 
 export interface BooksState {
-    value: Array<BookDto>
+    value: ApiList<BookDto> | null
+    offset: number
+    limit: number
     status: 'idle' | 'loading' | 'failed'
     postStatus: 'idle' | 'loading' | 'failed' | null
 }

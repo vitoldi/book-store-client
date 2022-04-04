@@ -1,15 +1,18 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { BookPostDto } from '../api/books/book-types'
 import { booksClientApi } from "../api/books/books-api"
-import { BooksState } from "./types"
+import { SearchParams } from '../api/types/common-api-types'
+import { BooksState, State } from "./types"
 
 const initialState: BooksState = {
-    value: [],
+    value: null,
+    offset: 0,
+    limit: 10,
     status: 'idle',
     postStatus: null
 }
 
-export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => await booksClientApi.getAll())
+export const fetchBooks = createAsyncThunk('books/fetchBooks', async ({offset, limit}: SearchParams) => await booksClientApi.getAll({offset, limit}))
 
 export const postBook = createAsyncThunk('books/postBooks', async (book: BookPostDto) => await booksClientApi.post(book))
 
@@ -46,3 +49,4 @@ export const booksSlice = createSlice({
 })
 
 export const {nullPostStatus} = booksSlice.actions
+export const BooksSelector = (state: State) => state.books

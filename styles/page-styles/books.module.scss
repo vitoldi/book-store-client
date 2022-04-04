@@ -2,8 +2,16 @@
     margin: 24px 0;
 }
 
+.booksPage__addButton {
+    margin-bottom: 24px;
+}
+
+.booksPage__total {
+    margin-bottom: 12px;
+    font-size: large;
+}
+
 .booksPage__cards {
-    margin-top: 24px;
     display: flex;
     flex-wrap: wrap;
     &_card {

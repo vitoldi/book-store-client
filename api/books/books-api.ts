@@ -1,11 +1,19 @@
 import { COMMON_API } from "../common-api"
+import { ApiList, SearchParams } from "../types/common-api-types"
 import { BookDto, BookPostDto } from "./book-types"
 
 class BooksClientApi {
     readonly COMMON_BOOKS_API = `${COMMON_API}/books`
     
-    async getAll(): Promise<BookDto[]> {
-        const response = await fetch(`${this.COMMON_BOOKS_API}`)
+    async getAll(searchParams: SearchParams): Promise<ApiList<BookDto>> {
+        const body = JSON.stringify(searchParams)
+        const headers = new Headers()
+        headers.append('Content-Type', 'application/json; charset=utf-8')
+        const response = await fetch(`${this.COMMON_BOOKS_API}/search`, {
+            headers,
+            method: 'POST',
+            body
+        })
         return response.json()
     }
 
@@ -22,14 +30,15 @@ class BooksClientApi {
         body.append('price', price)
         body.append('description', description)
         body.append('year', year)
-        const response = await fetch(`${this.COMMON_BOOKS_API}`, {
+        console.log(body)
+        await fetch(`${this.COMMON_BOOKS_API}/add`, {
             method: 'POST',
             body
         })
     }
 
     async delete(id: string) {
-        const response = await fetch(`${this.COMMON_BOOKS_API}/${id}`, {
+        await fetch(`${this.COMMON_BOOKS_API}/${id}`, {
             method: 'DELETE'
         })
     }
