@@ -11,7 +11,7 @@ interface Props {
 
 export const Paginator: NextPage<Props> = ({limit, offset, total, onChangeOffset}) => {
     const currentPage = offset / limit + 1
-    const pagesAmount = Math.floor(total / limit)
+    const pagesAmount = Math.ceil(total / limit)
     const pages = Array.from(Array(pagesAmount).keys())
     const pagesProperties = createPagesProperties(pages, currentPage)
 

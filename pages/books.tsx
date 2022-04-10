@@ -17,20 +17,20 @@ import classes from '../styles/page-styles/books.module.scss'
 export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
   const {offset, limit} = store.getState().books
   await store.dispatch(fetchBooks({offset, limit}))
-  const value = store.getState().books.value
-  return {props: {value}}
+  const initialValue = store.getState().books.value
+  return {props: {initialValue}}
 })
 
 interface Props {
-  value: ApiList<BookDto>
+  initialValue: ApiList<BookDto>
 }
 
-const BooksPage: NextPage<Props> = ({value}) => {
+const BooksPage: NextPage<Props> = ({initialValue}) => {
   const state = useSelector(BooksSelector)
   const dispatch = useDispatch()
   const [isDialogVisible, setDialogVisible] = useState(false)
   const removePostStatus = () => dispatch(nullPostStatus())
-  const books = state.value || value
+  const books = state.value || initialValue
 
   useEffect(() => {
     if (state.postStatus === 'idle') {
@@ -40,11 +40,9 @@ const BooksPage: NextPage<Props> = ({value}) => {
     }
   }, [state.postStatus, dispatch])
 
-  if (!value) {
+  if (!initialValue) {
     return null
   }
-
-  console.log(state.offset)
 
   return (
     <>
@@ -57,7 +55,7 @@ const BooksPage: NextPage<Props> = ({value}) => {
       <Container>
         <div className={classes.booksPage__wrapper}>
           <div className={classes.booksPage__addButton}><Button variant={'secondary'} onClick={() => setDialogVisible(true)} >+ Add book</Button></div>
-          <div className={classes.booksPage__total}><span>{`Total: ${value.total}`}</span></div>
+          <div className={classes.booksPage__total}><span>{`Total: ${books.total}`}</span></div>
           <div className={classes.booksPage__cards}>
             {
               books.items.map((book) => {
@@ -74,9 +72,9 @@ const BooksPage: NextPage<Props> = ({value}) => {
           total={books.total} 
           limit={state.limit} 
           offset={state.offset} 
-          onChangeOffset={(v: number) => {
-            dispatch(onChangeOffset(v))
-            dispatch(fetchBooks({offset: state.offset, limit: state.limit}))}}/>
+          onChangeOffset={(offset: number) => {
+            dispatch(onChangeOffset(offset))
+            dispatch(fetchBooks({offset, limit: state.limit}))}}/>
       </Container>
       <AddBookDialog isVisible={isDialogVisible} onChangeVisible={setDialogVisible} />
     </>

@@ -7,7 +7,7 @@ import { BooksState, State } from "./types"
 const initialState: BooksState = {
     value: null,
     offset: 0,
-    limit: 6,
+    limit: 12,
     status: 'idle',
     postStatus: null
 }
