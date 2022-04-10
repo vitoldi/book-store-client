@@ -7,13 +7,14 @@ import { BookDto } from '../api/books/book-types'
 import { ApiList } from '../api/types/common-api-types'
 import { AddBookDialog } from '../components/add-book-dialog/add-book-dialog'
 import { BookSmallCard } from '../components/book-small-card/book-small-card'
+import { Paginator } from '../components/paginator/paginator'
 import { SpinnerContainer } from '../components/spinner/spinner'
 import { ToastCommon } from '../components/toast-common/toast-common'
-import { BooksSelector, fetchBooks, nullPostStatus } from '../redux/books-reducer'
+import { BooksSelector, fetchBooks, nullPostStatus, onChangeOffset } from '../redux/books-reducer'
 import { wrapper } from '../redux/store'
 import classes from '../styles/page-styles/books.module.scss'
 
-export const getStaticProps = wrapper.getStaticProps((store) => async () => {
+export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
   const {offset, limit} = store.getState().books
   await store.dispatch(fetchBooks({offset, limit}))
   const value = store.getState().books.value
@@ -29,6 +30,7 @@ const BooksPage: NextPage<Props> = ({value}) => {
   const dispatch = useDispatch()
   const [isDialogVisible, setDialogVisible] = useState(false)
   const removePostStatus = () => dispatch(nullPostStatus())
+  const books = state.value || value
 
   useEffect(() => {
     if (state.postStatus === 'idle') {
@@ -41,6 +43,8 @@ const BooksPage: NextPage<Props> = ({value}) => {
   if (!value) {
     return null
   }
+
+  console.log(state.offset)
 
   return (
     <>
@@ -56,7 +60,7 @@ const BooksPage: NextPage<Props> = ({value}) => {
           <div className={classes.booksPage__total}><span>{`Total: ${value.total}`}</span></div>
           <div className={classes.booksPage__cards}>
             {
-              value.items.map((book) => {
+              books.items.map((book) => {
                 return (
                   <div key={book._id} className={classes.booksPage__cards_card}>
                       <BookSmallCard book={book} />
@@ -66,6 +70,13 @@ const BooksPage: NextPage<Props> = ({value}) => {
             }
           </div>
         </div>
+        <Paginator 
+          total={books.total} 
+          limit={state.limit} 
+          offset={state.offset} 
+          onChangeOffset={(v: number) => {
+            dispatch(onChangeOffset(v))
+            dispatch(fetchBooks({offset: state.offset, limit: state.limit}))}}/>
       </Container>
       <AddBookDialog isVisible={isDialogVisible} onChangeVisible={setDialogVisible} />
     </>

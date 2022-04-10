@@ -1,7 +1,6 @@
 import { NextPage } from 'next'
 import { Modal } from 'react-bootstrap'
 import { AddBookForm } from '../add-book-form/add-book-form'
-import classes from './add-book-dialog.module.scss'
 
 interface Props {
     isVisible: boolean

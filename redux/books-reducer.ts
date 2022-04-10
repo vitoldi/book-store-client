@@ -7,7 +7,7 @@ import { BooksState, State } from "./types"
 const initialState: BooksState = {
     value: null,
     offset: 0,
-    limit: 10,
+    limit: 6,
     status: 'idle',
     postStatus: null
 }
@@ -22,6 +22,9 @@ export const booksSlice = createSlice({
   reducers: {
     nullPostStatus: (state) => {
       state.postStatus = null
+    },
+    onChangeOffset: (state, action) => {
+      state.offset = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -33,13 +36,13 @@ export const booksSlice = createSlice({
         state.status = 'idle'
         state.value = action.payload
       })
-      .addCase(fetchBooks.rejected, (state, action) => {
+      .addCase(fetchBooks.rejected, (state) => {
         state.status = 'failed'
       })
       .addCase(postBook.pending, (state) => {
         state.postStatus = 'loading'
       })
-      .addCase(postBook.fulfilled, (state, action) => {
+      .addCase(postBook.fulfilled, (state) => {
         state.postStatus = 'idle'
       })
       .addCase(postBook.rejected, (state) => {
@@ -48,5 +51,5 @@ export const booksSlice = createSlice({
   },
 })
 
-export const {nullPostStatus} = booksSlice.actions
+export const {nullPostStatus, onChangeOffset} = booksSlice.actions
 export const BooksSelector = (state: State) => state.books
