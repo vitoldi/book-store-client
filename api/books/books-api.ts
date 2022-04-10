@@ -30,7 +30,6 @@ class BooksClientApi {
         body.append('price', price)
         body.append('description', description)
         body.append('year', year)
-        console.log(body)
         await fetch(`${this.COMMON_BOOKS_API}/add`, {
             method: 'POST',
             body

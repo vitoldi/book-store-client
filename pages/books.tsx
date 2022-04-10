@@ -30,14 +30,18 @@ const BooksPage: NextPage<Props> = ({value}) => {
   const [isDialogVisible, setDialogVisible] = useState(false)
   const removePostStatus = () => dispatch(nullPostStatus())
 
-  if (state.status === 'failed') {
-    return null
-  }
+  useEffect(() => {
+    if (state.postStatus === 'idle') {
+      return () => {
+        dispatch(nullPostStatus())
+      }
+    }
+  }, [state.postStatus, dispatch])
 
   if (!value) {
     return null
   }
-  
+
   return (
     <>
       <Head>
@@ -45,7 +49,7 @@ const BooksPage: NextPage<Props> = ({value}) => {
       </Head>
       <SpinnerContainer isVisible={state.status === 'loading'} />
       {state.postStatus === 'idle' && <ToastCommon text={'Book added successfully'} background={'success'} removeTrigger={removePostStatus}/>}
-      {state.postStatus === 'failed' && <ToastCommon text={'Book added successfully'} background={'danger'} removeTrigger={removePostStatus}/>}
+      {state.postStatus === 'failed' && <ToastCommon text={'Http request error'} background={'danger'} removeTrigger={removePostStatus}/>}
       <Container>
         <div className={classes.booksPage__wrapper}>
           <div className={classes.booksPage__addButton}><Button variant={'secondary'} onClick={() => setDialogVisible(true)} >+ Add book</Button></div>
